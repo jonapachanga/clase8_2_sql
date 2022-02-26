@@ -5,16 +5,23 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js",
-    "start": "node main.js"
+    "dev": "NODE_ENV=staging nodemon main.js",
+    "start": "NODE_ENV=staging node main.js",
+    "migrate": "knex migrate:latest --knexfile knexfile.js",
+    "rollback": "knex migrate:rollback --knexfile knexfile.js",
+    "seed": "knex seed:run knexfile.js"
   },
   "author": "Jonatan Eseiza",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "express-handlebars": "^6.0.2",
     "http-status-codes": "^2.2.0",
     "moment": "^2.29.1",
-    "socket.io": "^4.4.1"
+    "mysql": "^2.18.1",
+    "socket.io": "^4.4.1",
+    "knex": "^0.95.15",
+    "sqlite3": "^5.0.2"
   }
 }

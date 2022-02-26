@@ -4,7 +4,7 @@ const Socket = require('../utils/socket');
 module.exports = class Server {
     constructor() {
         this.app = express();
-        this.port = 8080;
+        this.port = process.env.APP_PORT;
         this.productsRoute = '/api/products';
 
         this.middlewares();

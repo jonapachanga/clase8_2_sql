@@ -3,8 +3,9 @@ const moment = require("moment");
 const mapper = require("../../utils/ObjectMapper");
 const Contenedor = require("../../models/Contenedor");
 const Messages = require("../../models/Messages");
+const knexConfig = require("../../knexfile");
 
-const productRepository = new Contenedor('products.json');
+const productRepository = new Contenedor(knexConfig[process.env.NODE_ENV], 'products')
 const messagesRepository = new Messages('messages.json');
 
 class Socket {
@@ -29,10 +30,15 @@ class Socket {
 
             socket.on('addProduct', async (product) => {
                 // Guardo el producto que se envio
-                await productRepository.save(product);
+                productRepository.save(product)
+                    .then(value => {
+                        productRepository.getAll()
+                            .then(products => socket.emit('init', products));
+                    });
 
-                // Vuelvo a emitir todos los productos
-                socket.emit('init', await productRepository.getAll());
+                // productRepository.getAll()
+                //     .then(products => socket.emit('init', products));
+
             })
 
             /* ----------- Messages ----------- */

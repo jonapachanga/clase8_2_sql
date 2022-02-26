@@ -101,12 +101,11 @@
             thumbnail: target[2].value
         };
 
-        console.log(product);
-
         socket.emit('addProduct', product);
     })
 
     socket.on("init", products =>{
+        console.log(products);
         let inner = ``;
         products.forEach(product =>{
             const { id, title, price, thumbnail } = product;

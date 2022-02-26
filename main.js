@@ -3,6 +3,9 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const path = require("path");
 
+const dotenv = require('dotenv');
+dotenv.config();
+
 const server = new Server();
 
 server.app.engine(
